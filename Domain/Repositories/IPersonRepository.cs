@@ -9,5 +9,6 @@ namespace Domain.Repositories
         Task<Person> CreatAsync(Person person);
         Task EditAsync(Person person);
         Task DeleteAsync(Person person);
+        Task<int>GetIdByDocumentAsync(string document);
     }
 }

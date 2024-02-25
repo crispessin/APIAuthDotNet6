@@ -19,8 +19,9 @@ namespace Infra.IoC
                 .UseNpgsql(configuration
                 .GetConnectionString("DefaulConnection")));
 
-            services
-                .AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             return services;
         }
 
@@ -28,6 +29,8 @@ namespace Infra.IoC
         {
             services.AddAutoMapper(typeof(DomainToDTOMapping));
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPurchaseService, PurchaseService>();
             return services;
         }
     }

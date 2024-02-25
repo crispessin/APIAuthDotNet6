@@ -27,8 +27,8 @@ namespace Domain.Entities
 
         private void Validation(int productId, int personId)
         {
-            DomainValidationException.When(productId < 0, "Id produto deve ser informado!");
-            DomainValidationException.When(personId < 0, "Id pessoa deve ser informado");
+            DomainValidationException.When(productId <= 0, "Id produto deve ser informado!");
+            DomainValidationException.When(personId <= 0, "Id pessoa deve ser informado");
 
             PersonId = personId;
             ProductId = productId;

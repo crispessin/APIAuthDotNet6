@@ -38,7 +38,12 @@ namespace Infra.Data.Repositories
             return await _db.Product.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ICollection<Product>> GetProductAsync()
+        public async Task<int> GetIdByCodErpAsync(string codErp)
+        {
+            return (await _db.Product.FirstOrDefaultAsync(x => x.CodErp == codErp))?.Id ?? 0;
+        }
+
+        public async Task<ICollection<Product>> GetProductsAsync()
         {
             return await _db.Product.ToListAsync();
         }

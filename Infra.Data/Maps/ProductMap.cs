@@ -22,7 +22,7 @@ namespace Infra.Data.Maps
                 .HasColumnName("nome");
 
             builder.Property(x => x.Price)
-                .HasColumnName("Preco");
+                .HasColumnName("preco");
 
             builder.HasMany(x => x.Purchases)
                 .WithOne(p => p.Product)
