@@ -53,7 +53,7 @@ namespace Application.Services
 
         public async Task<ResultService<ICollection<PurchaseDTO>>> GetAsync()
         {
-            var purchases = await _purchaseRepository.GetPurchasesAsync();
+            var purchases = await _purchaseRepository.GetAllAsync();
             return ResultService.OK<ICollection<PurchaseDTO>>(_mapper.Map<ICollection<PurchaseDTO>>(purchases));
         }
 

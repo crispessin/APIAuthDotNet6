@@ -35,12 +35,36 @@ namespace Infra.Data.Repositories
 
         public async Task<Purchase> GetByIdAsync(int id)
         {
-            return await _db.Purchase.FirstOrDefaultAsync(x => x.Id == id);
+            var purchase = await _db.Purchase
+                            .Include(x => x.Product)
+                            .Include(x => x.Person)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+
+            return purchase;
         }
 
-        public async Task<ICollection<Purchase>> GetPurchasesAsync()
+        public async Task<ICollection<Purchase>> GetByProductIdAsync(int productId)
         {
-            return await _db.Purchase.ToListAsync();
+            return await _db.Purchase
+                            .Include(x => x.Product)
+                            .Include(x => x.Person)
+                            .Where(x => x.ProductId == productId).ToListAsync();
+        }
+
+        public async Task<ICollection<Purchase>> GetAllAsync()
+        {
+            return await _db.Purchase
+                            .Include(x => x.Product)
+                            .Include(x => x.Person)
+                            .ToListAsync();
+        }
+
+        public async Task<ICollection<Purchase>> GetByPersonIdAsync(int personId)
+        {
+            return await _db.Purchase
+                            .Include(x => x.Product)
+                            .Include(x => x.Person)
+                            .Where(x => x.PersonId == personId).ToListAsync();
         }
     }
 }

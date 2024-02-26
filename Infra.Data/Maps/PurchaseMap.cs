@@ -17,9 +17,13 @@ namespace Infra.Data.Maps
                 .UseIdentityColumn();
 
             builder.Property(x => x.PersonId)
+                .HasColumnName("idpessoa");
+
+            builder.Property(x => x.ProductId)
                 .HasColumnName("idproduto");
 
             builder.Property(x => x.Date)
+                .HasColumnType("date")
                 .HasColumnName("datacompra");
 
             builder.HasOne(x => x.Person)
