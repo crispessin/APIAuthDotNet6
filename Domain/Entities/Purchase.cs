@@ -4,7 +4,6 @@ namespace Domain.Entities
 {
     public class Purchase
     {
-
         public int Id { get; private set; }
         public int ProductId { get; private set; }
         public int PersonId { get; private set; }
@@ -19,6 +18,13 @@ namespace Domain.Entities
         }
 
         public Purchase(int Id, int productId, int personId)
+        {
+            DomainValidationException.When(Id < 0, "Id deve ser informado!");
+            Id = Id;
+            Validation(productId, personId);
+        }
+
+        public void Edit(int Id, int productId, int personId)
         {
             DomainValidationException.When(Id < 0, "Id deve ser informado!");
             Id = Id;

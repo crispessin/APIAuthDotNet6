@@ -12,7 +12,7 @@ namespace Infra.Data.Context
 
         public DbSet<Person> People { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Purchase> Purchase { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -31,10 +31,10 @@ namespace API.Controllers
             }
             catch (DomainValidationException ex)
             {
-                var result = ResultService.Fail(ex.Message);   
+                var result = ResultService.Fail(ex.Message);
                 return BadRequest(result);
             }
-            
+
         }
 
         [HttpGet]
@@ -59,13 +59,21 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateAsync([FromBody] PurchaseDTO purchaseDTO)
+        public async Task<ActionResult> EditAsync([FromBody] PurchaseDTO purchaseDTO)
         {
-            var result = await _purchaseService.UpdateAsync(purchaseDTO);
-            if (result.IsSucess)
-                return Ok(result);
+            try
+            {
+                var result = await _purchaseService.UpdateAsync(purchaseDTO);
+                if (result.IsSucess)
+                    return Ok(result);
 
-            return BadRequest(result);
+                return BadRequest(result);
+            }
+            catch (DomainValidationException ex)
+            {
+                var resul = ResultService.Fail(ex.Message);
+                return BadRequest(resul);
+            }
         }
 
         [HttpDelete]

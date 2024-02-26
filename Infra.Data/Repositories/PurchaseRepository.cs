@@ -33,37 +33,35 @@ namespace Infra.Data.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task<ICollection<Purchase>> GetAllAsync()
+        {
+            return await _db.Purchases
+                            .Include(x => x.Person)
+                            .Include(x => x.Product)
+                            .ToListAsync();
+        }
+
         public async Task<Purchase> GetByIdAsync(int id)
         {
-            var purchase = await _db.Purchase
-                            .Include(x => x.Product)
+            return await _db.Purchases
                             .Include(x => x.Person)
+                            .Include(x => x.Product)
                             .FirstOrDefaultAsync(x => x.Id == id);
-
-            return purchase;
         }
 
         public async Task<ICollection<Purchase>> GetByProductIdAsync(int productId)
         {
-            return await _db.Purchase
+            return await _db.Purchases
                             .Include(x => x.Product)
                             .Include(x => x.Person)
                             .Where(x => x.ProductId == productId).ToListAsync();
         }
 
-        public async Task<ICollection<Purchase>> GetAllAsync()
-        {
-            return await _db.Purchase
-                            .Include(x => x.Product)
-                            .Include(x => x.Person)
-                            .ToListAsync();
-        }
-
         public async Task<ICollection<Purchase>> GetByPersonIdAsync(int personId)
         {
-            return await _db.Purchase
-                            .Include(x => x.Product)
+            return await _db.Purchases
                             .Include(x => x.Person)
+                            .Include(x => x.Product)
                             .Where(x => x.PersonId == personId).ToListAsync();
         }
     }
