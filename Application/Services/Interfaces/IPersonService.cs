@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Domain.FiltersDb;
 
 namespace Application.Services.Interfaces
 {
@@ -9,5 +10,6 @@ namespace Application.Services.Interfaces
         Task<ResultService<PersonDTO>> GetByIdAsync(int id);
         Task<ResultService> UpdateAsync(PersonDTO personDTO);
         Task<ResultService> DeleteAsync(int id);
+        Task<ResultService<PageBaseResponseDTO<PersonDTO>>> GetPageAsync(PersonFilterDB personFilterDB);
     }
 }

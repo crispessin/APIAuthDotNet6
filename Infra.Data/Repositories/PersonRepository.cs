@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.FiltersDb;
 using Domain.Repositories;
 using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,17 @@ namespace Infra.Data.Repositories
         public async Task<int> GetIdByDocumentAsync(string document)
         {
             return (await _db.People.FirstOrDefaultAsync(x => x.Document == document))?.Id ?? 0;
+        }
+
+        public async Task<PageBaseResponse<Person>> GetPageAsync(PersonFilterDB request)
+        {
+            var people = _db.People.AsQueryable();
+            if (!string.IsNullOrEmpty(request.Name))
+                people = people.Where(x => x.Name.Contains(request.Name));
+
+            return await PageBaseResponseHelper
+                .GetResponseAsync<PageBaseResponse<Person>, Person>(people, request);
+
         }
 
         public async Task<ICollection<Person>> GetPeopleAsync()

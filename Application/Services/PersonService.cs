@@ -3,6 +3,7 @@ using Application.DTOs.Validations;
 using Application.Services.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.FiltersDb;
 using Domain.Repositories;
 
 namespace Application.Services
@@ -54,6 +55,14 @@ namespace Application.Services
             if(person == null)
                 return ResultService.Fail<PersonDTO>("Pessoa não encontrada!");
             return ResultService.OK(_mapper.Map<PersonDTO>(person));
+        }
+
+        public async Task<ResultService<PageBaseResponseDTO<PersonDTO>>> GetPageAsync(PersonFilterDB personFilterDB)
+        {
+            var peoplePaged = await _personRepository.GetPageAsync(personFilterDB);
+            var result = new PageBaseResponseDTO<PersonDTO>(peoplePaged.TotalRegisters,_mapper
+                .Map<List<PersonDTO>>(peoplePaged.Data));
+            return ResultService.OK(result);
         }
 
         public async Task<ResultService> UpdateAsync(PersonDTO personDTO)

@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Services.Interfaces;
+using Domain.FiltersDb;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -62,6 +63,17 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var result = await _personService.DeleteAsync(id);
+            if (result.IsSucess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("paged")]
+        public async Task<ActionResult> GetPageAsync([FromQuery] PersonFilterDB personFilterDB)
+        {
+            var result = await _personService.GetPageAsync(personFilterDB);
             if (result.IsSucess)
                 return Ok(result);
 
