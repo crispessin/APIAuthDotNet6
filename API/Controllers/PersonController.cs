@@ -1,10 +1,12 @@
 ﻿using Application.DTOs;
 using Application.Services.Interfaces;
 using Domain.FiltersDb;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -26,7 +28,7 @@ namespace API.Controllers
 
             return BadRequest(result);
         }
-
+        
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {

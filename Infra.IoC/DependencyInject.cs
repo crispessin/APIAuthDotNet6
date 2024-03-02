@@ -1,7 +1,9 @@
 ﻿using Application.Mappings;
 using Application.Services;
 using Application.Services.Interfaces;
+using Domain.Authentication;
 using Domain.Repositories;
+using Infra.Data.Authentication;
 using Infra.Data.Context;
 using Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,8 @@ namespace Infra.IoC
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
 
@@ -32,6 +36,7 @@ namespace Infra.IoC
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IPurchaseService, PurchaseService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

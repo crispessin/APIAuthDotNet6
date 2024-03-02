@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories
 {
-    public class UserrRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public UserrRepository(ApplicationDbContext db)
+        public UserRepository(ApplicationDbContext db)
         {
             _db = db;
         }
